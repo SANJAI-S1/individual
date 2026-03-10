@@ -5,7 +5,9 @@ pipeline {
         AWS_REGION = "us-east-1"
         ACCOUNT_ID = "245324547477"
         IMAGE_NAME = "245324547477.dkr.ecr.us-east-1.amazonaws.com/application"
-        REGISTRY = "https://245324547477.dkr.ecr.us-east-1.amazonaws.com"
+        REGISTRY = "245324547477.dkr.ecr.us-east-1.amazonaws.com"
+        CLUSTER_NAME = "app-web"
+        SERVICE_NAME = "appwebsv"
     }
 
     stages {
@@ -34,5 +36,20 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy to ECS') {
+            steps {
+                withAWS(credentials: 'idcredaws', region: 'us-east-1') {
+                    sh """
+                    aws ecs update-service \
+                        --cluster ${CLUSTER_NAME} \
+                        --service ${SERVICE_NAME} \
+                        --force-new-deployment \
+                        --region ${AWS_REGION}
+                    """
+                }
+            }
+        }
     }
 }
+
