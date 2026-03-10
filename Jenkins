@@ -5,7 +5,7 @@ pipeline {
         AWS_REGION = "us-east-1"
         ACCOUNT_ID = "245324547477"
         IMAGE_NAME = "245324547477.dkr.ecr.us-east-1.amazonaws.com/application"
-        REGISTRY = "245324547477.dkr.ecr.us-east-1.amazonaws.com"
+        REGISTRY = "https://245324547477.dkr.ecr.us-east-1.amazonaws.com"
         CLUSTER_NAME = "app-web"
         SERVICE_NAME = "appwebsv"
     }
